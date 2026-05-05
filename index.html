@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A.P.O GROUP – Forage · Topographie · Immobilier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soil: #1a1208;
+            --earth: #2e1f0a;
+            --clay: #5c3a1e;
+            --sand: #c8a96e;
+            --gold: #e8c84a;
+            --cream: #f5edd8;
+            --white: #fefcf7;
+            --muted: rgba(200, 169, 110, 0.4);
+            --accent: #d4501a;
+            --nav-height: 5rem;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--soil);
+            color: var(--cream);
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        /* ── ANIMATIONS DE BASE ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+        .reveal-delay-5 {
+            transition-delay: 0.5s;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 4vw;
+            background: rgba(26, 18, 8, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(200, 169, 110, 0.15);
+            height: var(--nav-height);
+        }
+
+        .nav-logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.12em;
+            color: var(--gold);
+            text-decoration: none;
+            line-height: 1;
+        }
+        .nav-logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.75;
+            transition: opacity 0.2s, color 0.2s;
+            padding: 0.5rem 0;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            background: var(--gold);
+            color: var(--soil) !important;
+            opacity: 1 !important;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2px;
+            font-weight: 600 !important;
+            transition: background 0.2s !important;
+            display: inline-block;
+        }
+        .nav-cta:hover {
+            background: var(--sand) !important;
+        }
+
+        /* Hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+            z-index: 1001;
+            padding: 10px;
+        }
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 2px;
+            background: var(--gold);
+            transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile nav */
+        @media (max-width: 900px) {
+            .nav-links {
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                right: 0;
+                background: rgba(26, 18, 8, 0.98);
+                backdrop-filter: blur(15px);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                gap: 1.5rem;
+                transform: translateY(-150%);
+                transition: transform 0.4s ease;
+                border-bottom: 1px solid rgba(200, 169, 110, 0.2);
+            }
+            .nav-links.active {
+                transform: translateY(0);
+            }
+            .hamburger {
+                display: flex;
+            }
+            .nav-links a {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* ── HERO ── */
+        #hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            position: relative;
+            overflow: hidden;
+            padding-top: var(--nav-height);
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 60%, rgba(212, 80, 26, 0.18) 0%, transparent 55%),
+            radial-gradient(ellipse at 80% 20%, rgba(232, 200, 74, 0.12) 0%, transparent 50%),
+            linear-gradient(160deg, #1a1208 0%, #2e1f0a 60%, #1a1208 100%);
+        }
+
+        .hero-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: repeating-linear-gradient(105deg,
+            transparent 0px,
+            transparent 38px,
+            rgba(200, 169, 110, 0.04) 38px,
+            rgba(200, 169, 110, 0.04) 39px);
+        }
+
+        .hero-left {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 4vw 5rem 8vw;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.2s forwards;
+        }
+        .hero-tag::before {
+            content: '';
+            display: block;
+            width: 28px;
+            height: 2px;
+            background: var(--gold);
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.5rem, 9vw, 8rem);
+            line-height: 0.9;
+            letter-spacing: 0.02em;
+            color: var(--white);
+            opacity: 0;
+            animation: fadeUp 0.8s 0.4s forwards;
+        }
+        .hero-title em {
+            font-style: normal;
+            color: var(--gold);
+            display: block;
+        }
+
+        .hero-sub {
+            margin-top: 2rem;
+            font-family: 'DM Serif Display', serif;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--sand);
+            line-height: 1.6;
+            max-width: 460px;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.6s forwards;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s 0.8s forwards;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--soil);
+            border: none;
+            padding: 0.9rem 2rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: background 0.2s, transform 0.15s;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-primary:hover {
+            background: var(--sand);
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--cream);
+            border: 1px solid rgba(200, 169, 110, 0.4);
+            padding: 0.9rem 2rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 2px;
+            text-decoration: none;
+            transition: border-color 0.2s, color 0.2s;
+            display: inline-block;
+            text-align: center;
+        }
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        .hero-right {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 4rem 8vw 5rem 4vw;
+            opacity: 0;
+            animation: fadeIn 1.2s 0.5s forwards;
+        }
+
+        .hero-card {
+            background: rgba(46, 31, 10, 0.7);
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            border-radius: 4px;
+            padding: 2.5rem;
+            backdrop-filter: blur(8px);
+            width: 100%;
+            max-width: 380px;
+        }
+
+        .hero-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 0.08em;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.2rem;
+        }
+        .stat-item {
+            border-left: 2px solid var(--gold);
+            padding-left: 0.8rem;
+        }
+        .stat-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem;
+            color: var(--white);
+            line-height: 1;
+        }
+        .stat-label {
+            font-size: 0.72rem;
+            color: var(--sand);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-top: 0.2rem;
+        }
+
+        .hero-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(200, 169, 110, 0.2);
+            margin: 1.5rem 0;
+        }
+
+        .zone-list {
+            display: flex;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+        .zone-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            color: var(--soil);
+            background: var(--sand);
+            padding: 0.25rem 0.65rem;
+            border-radius: 2px;
+        }
+
+        /* ── SERVICES ── */
+        #services {
+            padding: 8rem 8vw;
+            position: relative;
+        }
+
+        #services::before {
+            content: 'SERVICES';
+            position: absolute;
+            top: 4rem;
+            right: 6vw;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12rem;
+            letter-spacing: 0.05em;
+            color: rgba(200, 169, 110, 0.04);
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-tag {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            color: var(--white);
+            line-height: 1.1;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: rgba(200, 169, 110, 0.1);
+            border: 1px solid rgba(200, 169, 110, 0.1);
+        }
+
+        .service-card {
+            background: var(--earth);
+            padding: 3rem 2.5rem;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.3s;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            background: #3a2810;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .service-num {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5rem;
+            color: rgba(200, 169, 110, 0.08);
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            line-height: 1;
+        }
+
+        .service-card h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            font-size: 0.88rem;
+            line-height: 1.7;
+            color: rgba(200, 169, 110, 0.7);
+            margin-bottom: 1.5rem;
+        }
+
+        .service-list {
+            list-style: none;
+        }
+        .service-list li {
+            font-size: 0.8rem;
+            color: var(--sand);
+            padding: 0.4rem 0;
+            border-bottom: 1px solid rgba(200, 169, 110, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .service-list li::before {
+            content: '→';
+            color: var(--gold);
+            font-size: 0.7rem;
+        }
+
+        /* ── TERRAINS ── */
+        #terrains {
+            padding: 8rem 8vw;
+            background: linear-gradient(180deg, var(--soil) 0%, #0f0b04 100%);
+        }
+
+        .terrain-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .terrain-intro p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(200, 169, 110, 0.75);
+            margin-top: 1rem;
+        }
+
+        .terrain-feature-list {
+            list-style: none;
+            margin-top: 2rem;
+        }
+        .terrain-feature-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 0.7rem 0;
+            border-bottom: 1px solid rgba(200, 169, 110, 0.08);
+            font-size: 0.9rem;
+            color: var(--cream);
+        }
+        .feat-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .terrain-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .terrain-card {
+            background: var(--earth);
+            border: 1px solid rgba(200, 169, 110, 0.12);
+            border-radius: 3px;
+            overflow: hidden;
+            transition: transform 0.25s, border-color 0.25s;
+        }
+        .terrain-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(200, 169, 110, 0.35);
+        }
+
+        .terrain-thumb {
+            height: 180px;
+            background: linear-gradient(135deg, #3a2810, #1a1208);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .terrain-thumb .t-icon {
+            font-size: 3rem;
+            opacity: 0.5;
+        }
+        .terrain-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent);
+            color: white;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.6rem;
+            border-radius: 2px;
+        }
+
+        .terrain-info {
+            padding: 1.5rem;
+        }
+        .terrain-info h4 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.3rem;
+            letter-spacing: 0.05em;
+            color: var(--white);
+            margin-bottom: 0.5rem;
+        }
+        .terrain-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: var(--sand);
+            margin-bottom: 1rem;
+        }
+        .terrain-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        .terrain-price {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+        }
+        .terrain-price small {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            color: var(--sand);
+            font-weight: 400;
+        }
+
+        .terrain-cta {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .t-btn {
+            flex: 1;
+            text-align: center;
+            padding: 0.55rem;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            cursor: pointer;
+            border: none;
+            transition: background 0.2s;
+            text-decoration: none;
+        }
+        .t-btn-main {
+            background: var(--gold);
+            color: var(--soil);
+        }
+        .t-btn-main:hover {
+            background: var(--sand);
+        }
+        .t-btn-wa {
+            background: #25d366;
+            color: white;
+        }
+        .t-btn-wa:hover {
+            background: #1db954;
+        }
+
+        /* ── REALISATIONS ── */
+        #realisations {
+            padding: 8rem 8vw;
+            background: var(--earth);
+        }
+
+        .real-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1rem;
+            margin-top: 4rem;
+        }
+
+        .real-card {
+            background: var(--soil);
+            border: 1px solid rgba(200, 169, 110, 0.1);
+            border-radius: 3px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            min-height: 240px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        .real-card:hover {
+            border-color: rgba(200, 169, 110, 0.4);
+        }
+        .real-card:first-child {
+            grid-row: 1 / 3;
+            min-height: 400px;
+        }
+
+        .real-bg {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            opacity: 0.06;
+        }
+
+        .real-cat {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+        }
+        .real-card h4 {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            line-height: 1.3;
+        }
+        .real-card p {
+            font-size: 0.78rem;
+            color: var(--sand);
+            margin-top: 0.4rem;
+        }
+
+        /* ── DEVIS ── */
+        #devis {
+            padding: 8rem 8vw;
+            background: linear-gradient(135deg, #1a1208 0%, #2e1f0a 50%, #1a1208 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #devis::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(232, 200, 74, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .devis-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6rem;
+            align-items: start;
+        }
+
+        .devis-form {
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--sand);
+            margin-bottom: 0.5rem;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            background: rgba(46, 31, 10, 0.8);
+            border: 1px solid rgba(200, 169, 110, 0.2);
+            color: var(--cream);
+            padding: 0.8rem 1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.9rem;
+            border-radius: 2px;
+            outline: none;
+            transition: border-color 0.2s;
+            appearance: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .form-group select option {
+            background: #2e1f0a;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: var(--soil);
+            border: none;
+            cursor: pointer;
+            padding: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            border-radius: 2px;
+            transition: background 0.2s, transform 0.15s;
+            margin-top: 0.5rem;
+        }
+        .submit-btn:hover {
+            background: var(--sand);
+            transform: translateY(-1px);
+        }
+
+        .contact-info {
+            position: relative;
+            z-index: 1;
+        }
+        .contact-info p {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: rgba(200, 169, 110, 0.75);
+            margin-top: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .c-icon {
+            width: 42px;
+            height: 42px;
+            background: rgba(232, 200, 74, 0.1);
+            border: 1px solid rgba(232, 200, 74, 0.2);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .c-text small {
+            display: block;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 0.2rem;
+        }
+        .c-text span {
+            font-size: 0.9rem;
+            color: var(--cream);
+        }
+
+        .wa-block {
+            margin-top: 2.5rem;
+            background: rgba(37, 211, 102, 0.08);
+            border: 1px solid rgba(37, 211, 102, 0.25);
+            border-radius: 3px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .wa-icon {
+            font-size: 2rem;
+        }
+        .wa-block p {
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--cream);
+            margin: 0;
+        }
+        .wa-block strong {
+            color: #4ade80;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            background: #0a0704;
+            padding: 4rem 8vw 2rem;
+            border-top: 1px solid rgba(200, 169, 110, 0.1);
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand .nav-logo {
+            font-size: 2.2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+        .footer-brand p {
+            font-size: 0.82rem;
+            line-height: 1.7;
+            color: rgba(200, 169, 110, 0.5);
+            max-width: 260px;
+        }
+
+        .footer-col h5 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col li {
+            margin-bottom: 0.6rem;
+        }
+        .footer-col a {
+            font-size: 0.82rem;
+            color: rgba(200, 169, 110, 0.55);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-col a:hover {
+            color: var(--sand);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(200, 169, 110, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        .footer-bottom p {
+            font-size: 0.75rem;
+            color: rgba(200, 169, 110, 0.35);
+        }
+
+        /* ── WA FLOAT ── */
+        .wa-float {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 200;
+            width: 56px;
+            height: 56px;
+            background: #25d366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            animation: scaleIn 0.5s 1s both;
+        }
+        .wa-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 28px rgba(37, 211, 102, 0.5);
+        }
+
+        /* ── RESPONSIVE TWEAKS ── */
+        @media (max-width: 1200px) {
+            .real-grid {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: auto;
+            }
+            .real-card:first-child {
+                grid-row: auto;
+                min-height: 240px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            #hero {
+                grid-template-columns: 1fr;
+            }
+            .hero-right {
+                display: none;
+            }
+            .hero-left {
+                padding: 4rem 6vw 5rem;
+            }
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .terrain-intro {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .terrain-cards {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            .real-grid {
+                grid-template-columns: 1fr;
+            }
+            .devis-inner {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 2rem;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            #services::before {
+                font-size: 6rem;
+                top: 2rem;
+                right: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            :root {
+                --nav-height: 4.5rem;
+            }
+            .hero-title {
+                font-size: 3rem;
+            }
+            .hero-sub {
+                font-size: 0.95rem;
+            }
+            .btn-primary, .btn-outline {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.8rem;
+            }
+            .service-card {
+                padding: 2rem 1.5rem;
+            }
+            .service-num {
+                font-size: 3rem;
+            }
+            .terrain-cards {
+                grid-template-columns: 1fr;
+            }
+            .real-card {
+                min-height: 200px;
+                padding: 1.5rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            footer {
+                padding: 3rem 5vw 1.5rem;
+            }
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            .wa-float {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+                bottom: 1.5rem;
+                right: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-logo">A.P.O <span>GROUP</span></a>
+    <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#terrains">Terrains</a></li>
+        <li><a href="#realisations">Réalisations</a></li>
+        <li><a href="#devis" class="nav-cta">Devis Gratuit</a></li>
+    </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-left">
+        <div class="hero-tag reveal">Douala, Logpom · Cameroun</div>
+        <h1 class="hero-title reveal">
+            Forage<br>
+            Topo&shy;graphie<br>
+            <em>Immobilier</em>
+        </h1>
+        <p class="hero-sub reveal">
+            Solutions professionnelles sur mesure pour vos projets de forage, d'étude topographique et d'acquisition foncière au Cameroun.
+        </p>
+        <div class="hero-btns reveal">
+            <a href="#devis" class="btn-primary">Demander un devis</a>
+            <a href="#services" class="btn-outline">Nos services</a>
+        </div>
+    </div>
+
+    <div class="hero-right reveal">
+        <div class="hero-card">
+            <h3>Zones d'intervention</h3>
+            <div class="stat-grid">
+                <div class="stat-item">
+                    <div class="stat-num">3</div>
+                    <div class="stat-label">Secteurs</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">24h</div>
+                    <div class="stat-label">Disponibilité</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">Professionnel</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-num">+</div>
+                    <div class="stat-label">Régions</div>
+                </div>
+            </div>
+            <div class="hero-divider"></div>
+            <div style="font-size:0.7rem;color:var(--sand);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.6rem;font-weight:600;">Zones couvertes</div>
+            <div class="zone-list">
+                <span class="zone-tag">Douala</span>
+                <span class="zone-tag">Yaoundé</span>
+                <span class="zone-tag">Kribi</span>
+                <span class="zone-tag">Expansion</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+    <div class="section-header">
+        <div>
+            <div class="section-tag reveal">Ce que nous faisons</div>
+            <h2 class="section-title reveal">Nos expertises</h2>
+        </div>
+    </div>
+
+    <div class="services-grid">
+        <div class="service-card reveal">
+            <span class="service-icon">⛏️</span>
+            <span class="service-num">01</span>
+            <h3>Forage</h3>
+            <p>Nous réalisons des forages de puits pour l'alimentation en eau potable et industrielle, avec installation de pompes et études préalables.</p>
+            <ul class="service-list">
+                <li>Forage de puits</li>
+                <li>Installation de pompes</li>
+                <li>Étude géophysique</li>
+                <li>Entretien &amp; maintenance</li>
+            </ul>
+        </div>
+
+        <div class="service-card reveal">
+            <span class="service-icon">📐</span>
+            <span class="service-num">02</span>
+            <h3>Topographie</h3>
+            <p>Levés terrain précis, bornage foncier et production de plans techniques pour vos projets de construction ou d'aménagement.</p>
+            <ul class="service-list">
+                <li>Levés altimétriques &amp; planimétriques</li>
+                <li>Bornage</li>
+                <li>Lotissement &amp; morcellement</li>
+                <li>Production de plans</li>
+                <li>Assistance technique</li>
+            </ul>
+        </div>
+
+        <div class="service-card reveal">
+            <span class="service-icon">🏡</span>
+            <span class="service-num">03</span>
+            <h3>Immobilier</h3>
+            <p>Large catalogue de terrains à vendre à Douala et environs. Fiches complètes, photos, prix transparents et accompagnement personnalisé.</p>
+            <ul class="service-list">
+                <li>Catalogue terrains disponibles</li>
+                <li>Fiches détaillées (surface, prix)</li>
+                <li>Accompagnement juridique</li>
+                <li>Contact WhatsApp direct</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- TERRAINS -->
+<section id="terrains">
+    <div class="terrain-intro">
+        <div>
+            <div class="section-tag reveal">Catalogue foncier</div>
+            <h2 class="section-title reveal">Terrains à vendre</h2>
+            <p class="reveal">Trouvez le terrain idéal pour votre projet résidentiel ou commercial. Nos offres couvrent Douala et les zones en forte croissance.</p>
+            <ul class="terrain-feature-list reveal">
+                <li><span class="feat-dot"></span> Fiches avec surface, localisation et prix</li>
+                <li><span class="feat-dot"></span> Galerie photos disponible pour chaque terrain</li>
+                <li><span class="feat-dot"></span> Réservation en ligne ou via WhatsApp</li>
+                <li><span class="feat-dot"></span> Offres prioritaires mises en avant</li>
+            </ul>
+        </div>
+        <div class="reveal">
+            <div style="background:rgba(46,31,10,0.6);border:1px solid rgba(200,169,110,0.15);border-radius:4px;padding:2rem;">
+                <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:0.08em;color:var(--gold);margin-bottom:1.2rem;">FILTRER LES OFFRES</div>
+                <div class="form-group">
+                    <label>Zone</label>
+                    <select>
+                        <option>Toutes les zones</option>
+                        <option>Douala</option>
+                        <option>Yaoundé</option>
+                        <option>Kribi</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Surface</label>
+                    <select>
+                        <option>Toutes surfaces</option>
+                        <option>< 200 m²</option>
+                        <option>200 – 500 m²</option>
+                        <option>> 500 m²</option>
+                    </select>
+                </div>
+                <button class="submit-btn" style="margin-top:0">Rechercher</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="terrain-cards">
+        <div class="terrain-card reveal">
+            <div class="terrain-thumb">
+                <div class="terrain-badge">Disponible</div>
+                <span class="t-icon">🌿</span>
+            </div>
+            <div class="terrain-info">
+                <h4>Terrain Résidentiel – Logpom</h4>
+                <div class="terrain-meta">
+                    <span>📍 Douala</span>
+                    <span>📐 300 m²</span>
+                </div>
+                <div class="terrain-price">14 500 000 <small>FCFA</small></div>
+                <div class="terrain-cta">
+                    <a href="#devis" class="t-btn t-btn-main">Infos &amp; réservation</a>
+                    <a href="https://wa.me/237656335789" class="t-btn t-btn-wa" target="_blank">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="terrain-card reveal">
+            <div class="terrain-thumb" style="background:linear-gradient(135deg,#2a1e10,#0f0b04)">
+                <div class="terrain-badge" style="background:var(--gold);color:var(--soil)">Prioritaire</div>
+                <span class="t-icon">🏗️</span>
+            </div>
+            <div class="terrain-info">
+                <h4>Parcelle Commerciale – PK14</h4>
+                <div class="terrain-meta">
+                    <span>📍 Douala</span>
+                    <span>📐 500 m²</span>
+                </div>
+                <div class="terrain-price">28 000 000 <small>FCFA</small></div>
+                <div class="terrain-cta">
+                    <a href="#devis" class="t-btn t-btn-main">Infos &amp; réservation</a>
+                    <a href="https://wa.me/237656335789" class="t-btn t-btn-wa" target="_blank">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="terrain-card reveal">
+            <div class="terrain-thumb" style="background:linear-gradient(135deg,#1e2a10,#080f04)">
+                <div class="terrain-badge" style="background:#3b82f6">Nouveau</div>
+                <span class="t-icon">🌳</span>
+            </div>
+            <div class="terrain-info">
+                <h4>Terrain Boisé – Kribi</h4>
+                <div class="terrain-meta">
+                    <span>📍 Kribi</span>
+                    <span>📐 800 m²</span>
+                </div>
+                <div class="terrain-price">9 800 000 <small>FCFA</small></div>
+                <div class="terrain-cta">
+                    <a href="#devis" class="t-btn t-btn-main">Infos &amp; réservation</a>
+                    <a href="https://wa.me/237656335789" class="t-btn t-btn-wa" target="_blank">WhatsApp</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- REALISATIONS -->
+<section id="realisations">
+    <div class="section-tag reveal">Notre portefeuille</div>
+    <h2 class="section-title reveal">Réalisations récentes</h2>
+
+    <div class="real-grid">
+        <div class="real-card reveal">
+            <div class="real-bg">⛏️</div>
+            <div class="real-cat">Forage</div>
+            <h4>Forage de puits — Site industriel, Douala Bassa</h4>
+            <p>Profondeur 80 m · Installation pompe solaire · Débit 5 m³/h</p>
+        </div>
+        <div class="real-card reveal">
+            <div class="real-bg">📐</div>
+            <div class="real-cat">Topographie</div>
+            <h4>Lotissement — Quartier résidentiel, Yaoundé</h4>
+            <p>42 parcelles délimitées · Plans livrés en 7 jours</p>
+        </div>
+        <div class="real-card reveal">
+            <div class="real-bg">🏡</div>
+            <div class="real-cat">Immobilier</div>
+            <h4>Vente — 6 terrains résidentiels, Logpom</h4>
+            <p>Tous vendus en moins de 3 semaines</p>
+        </div>
+        <div class="real-card reveal">
+            <div class="real-bg">📐</div>
+            <div class="real-cat">Topographie</div>
+            <h4>Bornage foncier — Morcellement, Kribi</h4>
+            <p>Assistance technique complète · Litige résolu</p>
+        </div>
+        <div class="real-card reveal">
+            <div class="real-bg">⛏️</div>
+            <div class="real-cat">Forage</div>
+            <h4>Étude géophysique &amp; forage — École, Douala</h4>
+            <p>Eau potable sécurisée pour 400 élèves</p>
+        </div>
+    </div>
+</section>
+
+<!-- DEVIS -->
+<section id="devis">
+    <div class="devis-inner">
+        <div class="devis-form">
+            <div class="section-tag reveal">Demande rapide</div>
+            <h2 class="section-title reveal" style="margin-bottom:2rem">Obtenir un devis<br><em style="font-family:'DM Serif Display',serif;font-style:italic;color:var(--sand);font-size:0.6em">gratuit &amp; sans engagement</em></h2>
+
+            <div class="form-row reveal">
+                <div class="form-group">
+                    <label>Nom complet</label>
+                    <input type="text" placeholder="Jean Mbarga">
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" placeholder="+237 6XX XXX XXX">
+                </div>
+            </div>
+
+            <div class="form-group reveal">
+                <label>Service souhaité</label>
+                <select>
+                    <option value="">Sélectionner un service…</option>
+                    <option>Forage de puits</option>
+                    <option>Installation de pompe</option>
+                    <option>Étude géophysique</option>
+                    <option>Levé topographique</option>
+                    <option>Bornage / Lotissement</option>
+                    <option>Achat de terrain</option>
+                    <option>Autre</option>
+                </select>
+            </div>
+
+            <div class="form-group reveal">
+                <label>Zone du projet</label>
+                <input type="text" placeholder="Ex : Douala, Akwa Nord">
+            </div>
+
+            <div class="form-group reveal">
+                <label>Description du projet</label>
+                <textarea placeholder="Décrivez brièvement votre besoin…"></textarea>
+            </div>
+
+            <button class="submit-btn reveal">Envoyer la demande →</button>
+        </div>
+
+        <div class="contact-info">
+            <div class="section-tag reveal">Nous contacter</div>
+            <h2 class="section-title reveal">Parlons de<br>votre projet</h2>
+            <p class="reveal">Notre équipe répond rapidement à toutes vos demandes, du lundi au samedi.</p>
+
+            <div class="contact-item reveal">
+                <div class="c-icon">📞</div>
+                <div class="c-text">
+                    <small>Téléphone</small>
+                    <span>+237 656 335 789</span>
+                </div>
+            </div>
+            <div class="contact-item reveal">
+                <div class="c-icon">✉️</div>
+                <div class="c-text">
+                    <small>Email</small>
+                    <span>contact@apogroup.cm</span>
+                </div>
+            </div>
+            <div class="contact-item reveal">
+                <div class="c-icon">📍</div>
+                <div class="c-text">
+                    <small>Adresse</small>
+                    <span>Douala, Logpom — Cameroun</span>
+                </div>
+            </div>
+
+            <div class="wa-block reveal">
+                <div class="wa-icon">💬</div>
+                <div>
+                    <p><strong>Réponse instantanée sur WhatsApp</strong><br>
+                        Envoyez-nous un message et obtenez une réponse en moins de 30 minutes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-top">
+        <div class="footer-brand reveal">
+            <span class="nav-logo">A.P.O <span style="color:var(--accent)">GROUP</span></span>
+            <p>Votre partenaire de confiance pour le forage, la topographie et l'immobilier au Cameroun.</p>
+        </div>
+        <div class="footer-col reveal">
+            <h5>Services</h5>
+            <ul>
+                <li><a href="#">Forage de puits</a></li>
+                <li><a href="#">Installation pompes</a></li>
+                <li><a href="#">Étude géophysique</a></li>
+                <li><a href="#">Topographie</a></li>
+                <li><a href="#">Immobilier</a></li>
+            </ul>
+        </div>
+        <div class="footer-col reveal">
+            <h5>Zones</h5>
+            <ul>
+                <li><a href="#">Douala</a></li>
+                <li><a href="#">Yaoundé</a></li>
+                <li><a href="#">Kribi</a></li>
+                <li><a href="#">Autres régions</a></li>
+            </ul>
+        </div>
+        <div class="footer-col reveal">
+            <h5>Liens rapides</h5>
+            <ul>
+                <li><a href="#services">Nos services</a></li>
+                <li><a href="#terrains">Terrains</a></li>
+                <li><a href="#realisations">Réalisations</a></li>
+                <li><a href="#devis">Devis gratuit</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom reveal">
+        <p>© 2026 A.P.O Group — Douala, Cameroun</p>
+        <p style="color:rgba(200,169,110,0.2);font-size:0.65rem;">Site réalisé par Prime Digital Solutions</p>
+    </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a class="wa-float" href="https://wa.me/237656335789" target="_blank" aria-label="WhatsApp">💬</a>
+
+<script>
+    // ── Mobile menu toggle ──
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+    });
+
+    // Fermer le menu quand on clique sur un lien
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            navLinks.classList.remove('active');
+        });
+    });
+
+    // ── Scroll reveal avec Intersection Observer ──
+    const revealElements = document.querySelectorAll('.reveal');
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -80px 0px',
+        threshold: 0.1
+    };
+
+    const revealCallback = (entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    };
+
+    const observer = new IntersectionObserver(revealCallback, observerOptions);
+    revealElements.forEach(el => observer.observe(el));
+
+    // ── Gestion du formulaire de devis (redirection WhatsApp) ──
+    document.querySelector('.submit-btn').addEventListener('click', function(e) {
+        e.preventDefault();
+        const form = this.closest('.devis-form');
+        const nom = form.querySelector('input[type="text"]').value.trim();
+        const tel = form.querySelector('input[type="tel"]').value.trim();
+        const service = form.querySelector('select').value;
+        const zone = form.querySelectorAll('input[type="text"]')[1].value.trim();
+        const description = form.querySelector('textarea').value.trim();
+
+        if (!nom || !tel) {
+            alert('Veuillez au moins renseigner votre nom et votre téléphone.');
+            return;
+        }
+
+        const message = `Bonjour APO GROUP,\n\n` +
+            `Nom : ${nom}\n` +
+            `Tél : ${tel}\n` +
+            `Service : ${service || 'Non spécifié'}\n` +
+            `Zone : ${zone || 'Non spécifiée'}\n` +
+            `Description : ${description || 'Aucune'}`;
+
+        const encoded = encodeURIComponent(message);
+        window.open(`https://wa.me/237656335789?text=${encoded}`, '_blank');
+    });
+
+    // ── Boutons "Infos & réservation" des terrains ──
+    document.querySelectorAll('.t-btn-main').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const card = this.closest('.terrain-card');
+            const titre = card.querySelector('h4').textContent;
+            const prix = card.querySelector('.terrain-price').textContent.trim();
+            const message = `Bonjour, je suis intéressé par le terrain "${titre}" au prix de ${prix}. Pouvez-vous me fournir plus d'informations ?`;
+            window.open(`https://wa.me/237656335789?text=${encodeURIComponent(message)}`, '_blank');
+        });
+    });
+</script>
+</body>
+</html>
